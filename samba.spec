@@ -262,6 +262,7 @@ BuildRequires: perl(Archive::Tar)
 BuildRequires: perl(Test::More)
 BuildRequires: popt-devel
 BuildRequires: python3-devel
+BuildRequires: python3-dns
 BuildRequires: python3-setuptools
 BuildRequires: quota-devel
 BuildRequires: readline-devel
