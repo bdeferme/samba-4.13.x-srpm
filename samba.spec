@@ -99,13 +99,13 @@
 
 %global main_release 0.2
 
-%global samba_version 4.13.3
-%global talloc_version 2.3.1
+%global samba_version 4.14.0
+%global talloc_version 2.3.2
 %global tdb_version 1.4.3
 %global tevent_version 0.10.2
 %global ldb_version 2.2.0
 # This should be rc1 or nil
-%global pre_release %{nil}
+%global pre_release rc1
 
 %global samba_release %{main_release}%{?dist}
 %if "x%{?pre_release}" != "x"
@@ -180,7 +180,7 @@ Patch1:         samba-s4u.patch
 # This will give us CI and makes it easy to generate patchsets.
 #
 # Generate the patchset using: git format-patch -l1 --stdout -N > samba-4.13-redhat.patch
-Patch2:         samba-4.13-redhat.patch
+#Patch2:         samba-4.13-redhat.patch
 
 Requires(pre): /usr/sbin/groupadd
 Requires(post): systemd
@@ -324,8 +324,14 @@ BuildRequires: lmdb-devel
 
 %if %{with dc} || %{with testsuite}
 BuildRequires: bind
+BuildRequires: krb5-server >= %{required_mit_krb5}
 BuildRequires: ldb-tools
 BuildRequires: tdb-tools
+# Add python3-iso8601 to avoid that the
+# version in Samba is being packaged
+#BuildRequires: python3-iso8601
+# Use python3_pkgverson for EPEL version on EL 7
+BuildRequires: python%{python3_pkgversion}-iso8601
 # RHEL 7 pulls from EPEL
 BuildRequires: python%{python3_pkgversion}-markdown
 %if %{with gpgme}
@@ -335,17 +341,6 @@ BuildRequires: python3-gpg
 # with testsuite || with dc
 %endif
 
-%if %{with dc} || %{with testsuite}
-# Add python3-iso8601 to avoid that the
-# version in Samba is being packaged
-#BuildRequires: python3-iso8601
-# Use python3_pkgverson for EPEL version on EL 7
-BuildRequires: python%{python3_pkgversoin}-iso8601
-
-BuildRequires: bind
-BuildRequires: krb5-server >= %{required_mit_krb5}
-#endif {with dc}
-%endif
 
 # filter out perl requirements pulled in from examples in the docdir.
 %global __requires_exclude_from ^%{_docdir}/.*$
@@ -3789,6 +3784,7 @@ fi
 - Flush trailing whitespace and unnecessary contractions
 - Roll back %%required_mit_krb5 for EL 7
 - Use python3_pkgversion as needed for EL
+- Update talloc to 2.2.2
 
 * Wed Dec 16 2020 Guenther Deschner <gdeschner@redhat.com> - 4.13.3-1
 - Rebuild against krb5-1.19
