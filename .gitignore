@@ -1,3 +1,5 @@
+*.asc
+*.gpt
 *.out
 *.rpm
 *.tar.*
