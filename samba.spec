@@ -112,7 +112,7 @@
 %global tevent_version 0.10.2
 %global ldb_version 2.2.0
 # This should be rc1 or nil
-%global pre_release rc2
+%global pre_release rc3
 
 %global samba_release %{main_release}%{?dist}
 %if "x%{?pre_release}" != "x"
@@ -163,7 +163,7 @@ URL:            https://www.samba.org
 
 Source0:        https://ftp.samba.org/pub/samba/%{?pre_release:rc/}samba-%{version}%{?pre_release}.tar.gz
 Source1:        https://ftp.samba.org/pub/samba/%{?pre_release:rc/}samba-%{version}%{?pre_release}.tar.asc
-Source2:        samba-pubkey_AA99442FB680B620.gpg
+Source2:        https://download.samba.org/pub/samba/samba-pubkey.asc
 
 # Red Hat specific replacement-files
 Source10:       samba.logrotate
