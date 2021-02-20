@@ -907,6 +907,11 @@ and use CTDB instead.
 %autosetup -n samba-%{version}%{pre_release} -p1
 
 %build
+%if 0%{?el7}
+# EL7 has invompatible C.UTF-8
+export LANG=en_US.UTF-8
+%endif
+
 %if %{with includelibs}
 %global _talloc_lib ,talloc,pytalloc,pytalloc-util
 %global _tevent_lib ,tevent,pytevent
@@ -1014,6 +1019,10 @@ popd
 
 %install
 %make_install
+%if 0%{?el7}
+# EL7 has invompatible C.UTF-8
+export LANG=en_US.UTF-8
+%endif
 
 install -d -m 0755 %{buildroot}/usr/{sbin,bin}
 install -d -m 0755 %{buildroot}%{_libdir}/security
