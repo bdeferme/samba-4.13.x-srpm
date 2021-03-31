@@ -99,7 +99,7 @@
 
 %global main_release 0.1
 
-%global samba_version 4.13.5
+%global samba_version 4.13.7
 %global talloc_version 2.3.1
 %global tdb_version 1.4.3
 %global tevent_version 0.10.2
